@@ -38,4 +38,66 @@ public class Ingredient extends BasicInfo {
         this.measurement = measurement;
         this.recipe = recipe;
     }
+
+    @NonNull
+    public String getName() {
+        return name;
+    }
+
+    public void setName(@NonNull String name) {
+        this.name = name;
+    }
+
+    @NonNull
+    public Date getDateCreated() {
+        return dateCreated;
+    }
+
+    public void setDateCreated(@NonNull Date dateCreated) {
+        this.dateCreated = dateCreated;
+    }
+
+    @NonNull
+    public Date getLastUpdate() {
+        return lastUpdate;
+    }
+
+    public void setLastUpdate(@NonNull Date lastUpdate) {
+        this.lastUpdate = lastUpdate;
+    }
+
+    public int getAmt() {
+        return amt;
+    }
+
+    public void setAmt(int amt) {
+        this.amt = amt;
+    }
+
+    @NonNull
+    public String getMeasurementType() {
+        return measurementType;
+    }
+
+    public void setMeasurementType(@NonNull String measurementType) {
+        this.measurementType = measurementType;
+    }
+
+    @NonNull
+    public String getMeasurement() {
+        return measurement;
+    }
+
+    public void setMeasurement(@NonNull String measurement) {
+        this.measurement = measurement;
+    }
+
+    @NonNull
+    public Recipe getRecipe() {
+        return recipe;
+    }
+
+    public void setRecipe(@NonNull Recipe recipe) {
+        this.recipe = recipe;
+    }
 }
