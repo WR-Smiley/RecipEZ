@@ -11,7 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.smileydev.recipez.R;
-import com.smileydev.recipez.activities.AddIngredient;
+import com.smileydev.recipez.activities.EditIngredient;
 import com.smileydev.recipez.entities.Ingredient;
 
 import java.util.List;
@@ -45,7 +45,7 @@ public class IngredientAdapter extends RecyclerView.Adapter<IngredientAdapter.In
                     int position = getAdapterPosition();
                     final Ingredient selected = allIngredients.get(position);
 
-                    Intent intent = new Intent(context, AddIngredient.class);
+                    Intent intent = new Intent(context, EditIngredient.class);
                     intent.putExtra("name", selected.getName());
                     intent.putExtra("create", selected.getDateCreated());
                     intent.putExtra("updated", selected.getLastUpdate());
