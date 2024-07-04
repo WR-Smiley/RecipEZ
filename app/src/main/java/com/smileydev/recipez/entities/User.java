@@ -2,11 +2,16 @@ package com.smileydev.recipez.entities;
 
 import androidx.annotation.NonNull;
 import androidx.room.Entity;
+import androidx.room.PrimaryKey;
 
 import java.util.Date;
 
 @Entity
 public class User extends BasicInfo {
+
+    @PrimaryKey(autoGenerate = true)
+    @NonNull
+    private int id;
 
     @NonNull
     private String name;

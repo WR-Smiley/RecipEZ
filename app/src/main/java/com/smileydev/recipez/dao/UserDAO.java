@@ -7,24 +7,25 @@ import androidx.room.Query;
 import androidx.room.Update;
 
 import com.smileydev.recipez.entities.Recipe;
+import com.smileydev.recipez.entities.User;
 
 import java.util.List;
 
 @Dao
-public interface RecipeDAO {
+public interface UserDAO {
 
     @Insert(onConflict = 3)
-    void insert(Recipe recipe);
+    void insert(User user);
 
     @Update
-    void update(Recipe recipe);
+    void update(User user);
 
     @Delete
-    void delete(Recipe recipe);
+    void delete(User user);
 
-    @Query("SELECT * FROM RECIPE ORDER BY name")
-    List<Recipe> getAllRecipes();
+    @Query("SELECT * FROM USER ORDER BY name")
+    List<User> getAllUsers();
 
-    @Query("SELECT * FROM RECIPE WHERE id = :id")
-    Recipe getRecipe(int id);
+    @Query("SELECT * FROM USER WHERE id = :id")
+    User getUser(int id);
 }
