@@ -22,9 +22,9 @@ public interface RecipeDAO {
     @Delete
     void delete(Recipe recipe);
 
-    @Query("SELECT * FROM RECIPE ORDER BY name")
-    List<Recipe> getAllRecipes();
+    @Query("SELECT * FROM RECIPE WHERE userId = :userId ORDER BY name")
+    List<Recipe> getAllRecipes(int userId);
 
-    @Query("SELECT * FROM RECIPE WHERE id = :id")
-    Recipe getRecipe(int id);
+    @Query("SELECT * FROM RECIPE WHERE id = :id AND userId = :userId")
+    Recipe getRecipe(int userId, int id);
 }

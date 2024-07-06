@@ -2,12 +2,14 @@ package com.smileydev.recipez.entities;
 
 import androidx.annotation.NonNull;
 import androidx.room.Entity;
+import androidx.room.PrimaryKey;
 
 import java.util.Date;
 
 @Entity
 public class Ingredient extends BasicInfo {
 
+    @PrimaryKey
     @NonNull
     private String name;
 
@@ -29,14 +31,14 @@ public class Ingredient extends BasicInfo {
     private String measurement;
 
     @NonNull
-    private Recipe recipe;
+    private int recipeId;
 
-    public Ingredient(String name, Date dateCreated, Date lastUpdate, int amt, String measurementType, String measurement, Recipe recipe) {
+    public Ingredient(String name, Date dateCreated, Date lastUpdate, int amt, String measurementType, String measurement, int recipeId) {
         super(name, dateCreated, lastUpdate);
         this.amt = amt;
         this.measurementType = measurementType;
         this.measurement = measurement;
-        this.recipe = recipe;
+        this.recipeId = recipeId;
     }
 
     @NonNull
@@ -92,12 +94,11 @@ public class Ingredient extends BasicInfo {
         this.measurement = measurement;
     }
 
-    @NonNull
-    public Recipe getRecipe() {
-        return recipe;
+    public int getRecipeId() {
+        return recipeId;
     }
 
-    public void setRecipe(@NonNull Recipe recipe) {
-        this.recipe = recipe;
+    public void setRecipeId(int recipeId) {
+        this.recipeId = recipeId;
     }
 }

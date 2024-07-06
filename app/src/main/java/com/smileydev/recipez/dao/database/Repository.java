@@ -36,9 +36,9 @@ public class Repository {
         mUDao = db.mUDao();
     }
 
-    public Recipe getRecipe(int id) {
+    public Recipe getRecipe(int userId, int id) {
         dbExecutor.execute(() -> {
-            mRecipe = mRDao.getRecipe(id);
+            mRecipe = mRDao.getRecipe(userId, id);
         });
 
         try {
@@ -62,9 +62,9 @@ public class Repository {
 
         return mUser;
     }
-    public List<Recipe> getAllRecipes() {
+    public List<Recipe> getAllRecipes(int userId) {
         dbExecutor.execute(() -> {
-            mRecipes = mRDao.getAllRecipes();
+            mRecipes = mRDao.getAllRecipes(userId);
         });
 
         try {

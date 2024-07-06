@@ -113,4 +113,9 @@ public class User extends BasicInfo {
     public void setPassword(@NonNull String password) {
         this.password = password;
     }
+
+    @NonNull
+    public String toString() {
+        return this.name + ", " + this.title;
+    }
 }

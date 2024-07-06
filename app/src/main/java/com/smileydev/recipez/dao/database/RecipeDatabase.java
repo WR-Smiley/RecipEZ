@@ -5,6 +5,7 @@ import android.content.Context;
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
+import androidx.room.TypeConverters;
 
 import com.smileydev.recipez.dao.IngredientDAO;
 import com.smileydev.recipez.dao.RecipeDAO;
@@ -14,6 +15,7 @@ import com.smileydev.recipez.entities.Recipe;
 import com.smileydev.recipez.entities.User;
 
 @Database(entities = {Recipe.class, Ingredient.class, User.class}, version = 1, exportSchema = false)
+@TypeConverters({com.smileydev.recipez.services.TypeConverters.class})
 public abstract class RecipeDatabase extends RoomDatabase {
 
     public abstract RecipeDAO mRDao();
