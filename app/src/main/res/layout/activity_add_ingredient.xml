@@ -101,5 +101,19 @@
 
         </LinearLayout>
 
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/save"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/standard_button"
+            android:fontFamily="arial"
+            android:padding="5dp"
+            android:text="Save Ingredient"
+            android:textAllCaps="false"
+            android:textColor="#1F1929"
+            android:textSize="18dp"/>
+
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
