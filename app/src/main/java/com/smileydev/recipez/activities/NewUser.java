@@ -35,7 +35,6 @@ public class NewUser extends AppCompatActivity {
         EditText email = findViewById(R.id.emailEdit);
         EditText username = findViewById(R.id.usernameEdit);
         EditText password = findViewById(R.id.passwordEdit);
-        Date now = new Date();
 
         newUser.setOnClickListener(new View.OnClickListener() {
             @Override

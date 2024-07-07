@@ -4,7 +4,6 @@ import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
-import java.util.ArrayList;
 import java.util.Date;
 
 @Entity
@@ -27,19 +26,15 @@ public class Recipe extends BasicInfo {
     private int userId;
 
     @NonNull
-    private ArrayList<String> instructions;
+    private String instructions;
 
-    @NonNull
-    private ArrayList<Ingredient> ingredients;
-
-    public Recipe(String name, Date dateCreated, Date lastUpdate, int pplServed, int timeEstimate, User createdBy, int userId, ArrayList<String> instructions, ArrayList<Ingredient> ingredients) {
+    public Recipe(String name, Date dateCreated, Date lastUpdate, int pplServed, int timeEstimate, User createdBy, int userId, String instructions) {
         super(name, dateCreated, lastUpdate);
         this.pplServed = pplServed;
         this.timeEstimate = timeEstimate;
         this.createdBy = createdBy;
         this.userId = userId;
         this.instructions = instructions;
-        this.ingredients = ingredients;
     }
 
     public int getId() {
@@ -84,20 +79,11 @@ public class Recipe extends BasicInfo {
     }
 
     @NonNull
-    public ArrayList<String> getInstructions() {
+    public String getInstructions() {
         return instructions;
     }
 
-    public void setInstructions(@NonNull ArrayList<String> instructions) {
+    public void setInstructions(@NonNull String instructions) {
         this.instructions = instructions;
-    }
-
-    @NonNull
-    public ArrayList<Ingredient> getIngredients() {
-        return ingredients;
-    }
-
-    public void setIngredients(@NonNull ArrayList<Ingredient> ingredients) {
-        this.ingredients = ingredients;
     }
 }
