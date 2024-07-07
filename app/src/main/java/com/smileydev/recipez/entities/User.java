@@ -13,15 +13,6 @@ public class User extends BasicInfo {
     @NonNull
     private int id;
 
-    @NonNull
-    private String name;
-
-    @NonNull
-    private Date dateCreated;
-
-    @NonNull
-    private Date lastUpdate;
-
     // Head chef, sous-chef, line cook, etc.
     @NonNull
     private String title;
@@ -49,33 +40,6 @@ public class User extends BasicInfo {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    @NonNull
-    public String getName() {
-        return name;
-    }
-
-    public void setName(@NonNull String name) {
-        this.name = name;
-    }
-
-    @NonNull
-    public Date getDateCreated() {
-        return dateCreated;
-    }
-
-    public void setDateCreated(@NonNull Date dateCreated) {
-        this.dateCreated = dateCreated;
-    }
-
-    @NonNull
-    public Date getLastUpdate() {
-        return lastUpdate;
-    }
-
-    public void setLastUpdate(@NonNull Date lastUpdate) {
-        this.lastUpdate = lastUpdate;
     }
 
     @NonNull
@@ -114,8 +78,4 @@ public class User extends BasicInfo {
         this.password = password;
     }
 
-    @NonNull
-    public String toString() {
-        return this.name + ", " + this.title;
-    }
 }

@@ -15,16 +15,6 @@ public class Recipe extends BasicInfo {
     private int id;
 
     @NonNull
-    private String name;
-
-
-    @NonNull
-    private Date dateCreated;
-
-    @NonNull
-    private Date lastUpdate;
-
-    @NonNull
     private int pplServed;
 
     @NonNull
@@ -58,33 +48,6 @@ public class Recipe extends BasicInfo {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    @NonNull
-    public String getName() {
-        return name;
-    }
-
-    public void setName(@NonNull String name) {
-        this.name = name;
-    }
-
-    @NonNull
-    public Date getDateCreated() {
-        return dateCreated;
-    }
-
-    public void setDateCreated(@NonNull Date dateCreated) {
-        this.dateCreated = dateCreated;
-    }
-
-    @NonNull
-    public Date getLastUpdate() {
-        return lastUpdate;
-    }
-
-    public void setLastUpdate(@NonNull Date lastUpdate) {
-        this.lastUpdate = lastUpdate;
     }
 
     public int getPplServed() {

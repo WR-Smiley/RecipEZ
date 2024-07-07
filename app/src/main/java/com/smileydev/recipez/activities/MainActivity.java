@@ -18,6 +18,8 @@ import com.smileydev.recipez.R;
 import com.smileydev.recipez.dao.database.Repository;
 import com.smileydev.recipez.entities.User;
 
+import java.security.MessageDigest;
+
 public class MainActivity extends AppCompatActivity {
 
 
@@ -34,8 +36,49 @@ public class MainActivity extends AppCompatActivity {
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, Homepage.class);
-                startActivity(intent);
+                try {
+                    // Create boolean to allow for either logging in or showing error message.
+                    Boolean logged_in = false;
+                    User login_user = null;
+                    // Hash password
+                    String encryptedPassword = null;
+                    MessageDigest digest = MessageDigest.getInstance("MD5");
+                    digest.update(password.getText().toString().getBytes());
+                    byte[] bytes = digest.digest();
+                    StringBuilder passwordBuilder = new StringBuilder();
+                    for (int i = 0; i < bytes.length; i++) {
+                        passwordBuilder.append(Integer.toString((bytes[i] & 0xff) + 0x100, 16).substring(1));
+                    }
+                    encryptedPassword = passwordBuilder.toString();
+                    // Compare username and hashed password to database
+                    Repository repo = new Repository(getApplication());
+                    for (User u : repo.getAllUsers()) {
+                        if (username.getText().toString().equals(u.getUsername()) && (encryptedPassword.equals(u.getPassword()))) {
+                            logged_in = true;
+                            login_user = u;
+                        }
+                    }
+                    if (logged_in) {
+                        Intent intent = new Intent(MainActivity.this, Homepage.class);
+                        intent.putExtra("userId", login_user.getId());
+                        intent.putExtra("userName", login_user.getName());
+                        startActivity(intent);
+                        finish();
+                    }
+                    else {
+                        AlertDialog.Builder loginAlert = new AlertDialog.Builder(MainActivity.this);
+                        loginAlert.setMessage("Username or password incorrect.");
+                        loginAlert.setTitle("Invalid login");
+                        loginAlert.setCancelable(false);
+                        loginAlert.setPositiveButton("Okay", (DialogInterface.OnClickListener) (dialog, which) -> {
+                            dialog.cancel();
+                        });
+                        AlertDialog dialog = loginAlert.create();
+                        dialog.show();
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         });
 
@@ -44,33 +87,8 @@ public class MainActivity extends AppCompatActivity {
         newUser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Repository repo = new Repository(getApplication());
-                if (username.getText().toString().isEmpty() ||
-                password.getText().toString().isEmpty()) {
-                    AlertDialog.Builder emptyAlert = new AlertDialog.Builder(MainActivity.this);
-                    emptyAlert.setMessage("Please provide a username and password.");
-                    emptyAlert.setTitle("Empty Fields");
-                    emptyAlert.setCancelable(false);
-                    emptyAlert.setPositiveButton("Okay", (DialogInterface.OnClickListener) (dialog, which) -> {
-                        dialog.cancel();
-                    });
-                    AlertDialog dialog = emptyAlert.create();
-                    dialog.show();
-                }
-                for (User u : repo.getAllUsers()) {
-                    if (username.getText().toString().equals(u.getUsername())) {
-                        AlertDialog.Builder usernameAlert = new AlertDialog.Builder(MainActivity.this);
-                        usernameAlert.setMessage("Username already taken, please choose another.");
-                        usernameAlert.setTitle("Username taken");
-                        usernameAlert.setCancelable(false);
-                        usernameAlert.setPositiveButton("Okay", (DialogInterface.OnClickListener) (dialog, which) -> {
-                            dialog.cancel();
-                        });
-                        AlertDialog dialog = usernameAlert.create();
-                        dialog.show();
-                    }
-                }
-
+                Intent intent = new Intent(MainActivity.this, NewUser.class);
+                startActivity(intent);
             }
         });
 

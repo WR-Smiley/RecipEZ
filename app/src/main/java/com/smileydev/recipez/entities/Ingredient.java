@@ -9,15 +9,9 @@ import java.util.Date;
 @Entity
 public class Ingredient extends BasicInfo {
 
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     @NonNull
-    private String name;
-
-    @NonNull
-    private Date dateCreated;
-
-    @NonNull
-    private Date lastUpdate;
+    private int id;
 
     @NonNull
     private int amt;
@@ -41,31 +35,12 @@ public class Ingredient extends BasicInfo {
         this.recipeId = recipeId;
     }
 
-    @NonNull
-    public String getName() {
-        return name;
+    public int getId() {
+        return id;
     }
 
-    public void setName(@NonNull String name) {
-        this.name = name;
-    }
-
-    @NonNull
-    public Date getDateCreated() {
-        return dateCreated;
-    }
-
-    public void setDateCreated(@NonNull Date dateCreated) {
-        this.dateCreated = dateCreated;
-    }
-
-    @NonNull
-    public Date getLastUpdate() {
-        return lastUpdate;
-    }
-
-    public void setLastUpdate(@NonNull Date lastUpdate) {
-        this.lastUpdate = lastUpdate;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public int getAmt() {
