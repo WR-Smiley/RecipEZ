@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="volumeMeasurements">
+        <item>Cups</item>
+        <item>Tablespoons</item>
+        <item>Teaspoons</item>
+        <item>Milliliters</item>
+        <item>Fl. Ounces</item>
+    </string-array>
+</resources>

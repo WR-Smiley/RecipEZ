@@ -1,6 +1,7 @@
 package com.smileydev.recipez.activities;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -31,21 +32,38 @@ public class AddRecipe extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_add_recipe);
+
         Repository repo = new Repository(getApplication());
         Button saveButton = findViewById(R.id.save);
+        Button addIngredient = findViewById(R.id.addIngredientRecipe);
         EditText recipeName = findViewById(R.id.recipe_name);
         TextView createdUser = findViewById(R.id.creator);
         EditText numServed = findViewById(R.id.recipePplEdit);
         EditText timeEst = findViewById(R.id.timeEdit);
         EditText instruction = findViewById(R.id.instructionEdit);
-        TextView creationDate = findViewById(R.id.dateCreated);
-        TextView updated = findViewById(R.id.lastUpdate);
         RecyclerView ingredients = findViewById(R.id.ingredientRecycler);
-        String userName = getIntent().getStringExtra("userName");
-        int userId = getIntent().getIntExtra("userId", -1);
-        User currentUser = repo.getUser(userId);
         Instant instant = Instant.now();
         Date now = Date.from(instant);
+        // Display date created and last updated.
+        TextView creationDate = findViewById(R.id.dateCreated);
+        creationDate.setText("Created on: " + now.toString());
+        TextView updated = findViewById(R.id.lastUpdate);
+        updated.setText("Last updated: " + now.toString());
+
+        String userName = getIntent().getStringExtra("userName");
+        createdUser.setText(userName);
+        int userId = getIntent().getIntExtra("userId", -1);
+        User currentUser = repo.getUser(userId);
+
+        addIngredient.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(AddRecipe.this, AddIngredient.class);
+                //intent.putExtra("userId", userId);
+                //intent.putExtra("userName", userName);
+                startActivity(intent);
+            }
+        });
 
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
