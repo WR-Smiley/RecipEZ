@@ -25,6 +25,6 @@ public interface IngredientDAO {
     @Query("SELECT * FROM INGREDIENT ORDER BY name")
     List<Ingredient> getAllIngredients();
 
-    @Query("SELECT * FROM INGREDIENT WHERE name == :name")
-    Ingredient getIngredient(String name);
+    @Query("SELECT * FROM INGREDIENT WHERE id == :id")
+    Ingredient getIngredient(int id);
 }

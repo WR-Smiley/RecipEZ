@@ -50,7 +50,7 @@ public class ViewRecipe extends AppCompatActivity {
             }
         }
         Recipe current = repo.getRecipe(userId, recipeId);
-        final IngredientViewAdapter ingredientViewAdapter = new IngredientViewAdapter(this);
+        final IngredientViewAdapter ingredientViewAdapter = new IngredientViewAdapter(this, getApplication());
         ingredients.setAdapter(ingredientViewAdapter);
         ingredients.setLayoutManager(new LinearLayoutManager(this));
         ingredientViewAdapter.setIngredients(recipeIngredients);

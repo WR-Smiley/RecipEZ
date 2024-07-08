@@ -25,6 +25,7 @@ public class Repository {
 
     private Recipe mRecipe;
     private User mUser;
+    private Ingredient mIngredient;
 
     private static int THREADS = 5;
     static final ExecutorService dbExecutor = Executors.newFixedThreadPool(THREADS);
@@ -102,6 +103,21 @@ public class Repository {
 
         return mIngredients;
     }
+
+    public Ingredient getIngredient(int id) {
+        dbExecutor.execute(() -> {
+            mIngredient = mIDao.getIngredient(id);
+        });
+
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+
+        return mIngredient;
+    }
+
     public List<User> getAllUsers() {
         dbExecutor.execute(() -> {
             mUsers = mUDao.getAllUsers();

@@ -17,7 +17,7 @@
             android:layout_height="wrap_content"
             android:layout_marginRight="10dp"
             android:text="Amount"
-            android:textSize="10sp" />
+            android:textSize="15sp" />
 
         <TextView
             android:id="@+id/measurement"
@@ -25,13 +25,27 @@
             android:layout_height="wrap_content"
             android:layout_marginRight="10dp"
             android:text="Measurement"
-            android:textSize="10sp" />
+            android:textSize="15sp" />
 
         <TextView
             android:id="@+id/ingredient_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Ingredient Name"
+            android:textSize="15sp" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/delete"
+            android:layout_width="wrap_content"
+            android:layout_height="25dp"
+            android:layout_gravity="center"
+            android:layout_marginLeft="15dp"
+            android:background="@drawable/standard_button"
+            android:fontFamily="arial"
+            android:padding="5dp"
+            android:text="Delete Ingredient"
+            android:textAllCaps="false"
+            android:textColor="#1F1929"
             android:textSize="10sp" />
 
     </LinearLayout>
