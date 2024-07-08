@@ -30,4 +30,7 @@ public interface RecipeDAO {
 
     @Query("SELECT * FROM RECIPE WHERE id = :id AND userId = :userId")
     Recipe getRecipe(int userId, int id);
+
+    @Query("SELECT * FROM RECIPE WHERE userId = :userId AND name LIKE '%' || :query || '%'")
+    List<Recipe> searchRecipes(int userId, String query);
 }
