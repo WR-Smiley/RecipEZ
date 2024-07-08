@@ -12,7 +12,6 @@
         android:layout_height="729dp"
         android:layout_marginTop="208dp"
         android:orientation="vertical"
-        android:paddingLeft="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -27,12 +26,14 @@
             android:inputType="text"
             android:text=""
             android:textAlignment="center"
-            android:textSize="30dp" />
+            android:textSize="30dp"
+            android:background="@drawable/border_only"/>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:background="@drawable/border_only">
 
             <TextView
                 android:id="@+id/ingredientAmtView"
@@ -58,7 +59,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:background="@drawable/border_only">
 
             <TextView
                 android:id="@+id/measurementTypeView"
@@ -80,6 +82,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@drawable/border_only"
             android:layout_weight="0"
             android:orientation="horizontal">
 

@@ -11,18 +11,18 @@
         android:layout_width="match_parent"
         android:layout_height="729dp"
         android:orientation="vertical"
-        android:paddingLeft="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
+        <EditText
             android:id="@+id/recipe_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@drawable/border_only"
             android:layout_marginTop="15dp"
             android:ems="10"
-            android:text="Recipe Name"
+            android:text=""
             android:inputType="text"
             android:textSize="30dp"
             android:textAlignment="center" />
@@ -30,6 +30,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@drawable/border_only"
             android:orientation="horizontal">
 
             <TextView
@@ -46,6 +47,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@drawable/border_only"
             android:orientation="horizontal">
 
             <TextView
@@ -72,6 +74,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@drawable/border_only"
             android:orientation="horizontal">
 
             <TextView
@@ -98,6 +101,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@drawable/border_only"
             android:layout_weight="0"
             android:orientation="horizontal">
 
@@ -120,11 +124,25 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_marginTop="15dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="15dp"
                     android:background="@drawable/standard_button"
                     android:fontFamily="arial"
                     android:padding="5dp"
                     android:text="Add Ingredient"
+                    android:textAllCaps="false"
+                    android:textColor="#1F1929" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/refreshView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="15dp"
+                    android:background="@drawable/standard_button"
+                    android:fontFamily="arial"
+                    android:padding="5dp"
+                    android:text="Refresh"
                     android:textAllCaps="false"
                     android:textColor="#1F1929" />
 
@@ -146,6 +164,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@drawable/border_only"
             android:orientation="horizontal">
 
             <TextView

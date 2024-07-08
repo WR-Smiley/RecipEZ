@@ -11,7 +11,6 @@
         android:layout_width="match_parent"
         android:layout_height="729dp"
         android:orientation="vertical"
-        android:paddingLeft="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -21,6 +20,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
+            android:background="@drawable/border_only"
             android:ems="10"
             android:hint="Recipe Name"
             android:inputType="text"
@@ -31,7 +31,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:background="@drawable/border_only">
 
             <TextView
                 android:id="@+id/textView2"
@@ -55,6 +56,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@drawable/border_only"
             android:orientation="horizontal">
 
             <TextView
@@ -81,7 +83,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:background="@drawable/border_only">
 
             <TextView
                 android:id="@+id/timeView"
@@ -107,6 +110,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@drawable/border_only"
             android:layout_weight="0"
             android:orientation="horizontal">
 
@@ -169,7 +173,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:background="@drawable/border_only">
 
             <TextView
                 android:id="@+id/instructionView"
@@ -201,12 +206,14 @@
             android:id="@+id/dateCreated"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@drawable/border_only"
             android:text="" />
 
         <TextView
             android:id="@+id/lastUpdate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@drawable/border_only"
             android:text="" />
 
         <androidx.appcompat.widget.AppCompatButton
