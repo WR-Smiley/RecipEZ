@@ -31,6 +31,7 @@ public class Homepage extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_home);
         Button newRecipe = findViewById(R.id.addRecipe);
+        Button search = findViewById(R.id.searchButton);
         TextView welcome = findViewById(R.id.welcomeMsg);
         userId = getIntent().getIntExtra("userId", -1);
         String userName = getIntent().getStringExtra("userName");
@@ -54,6 +55,13 @@ public class Homepage extends AppCompatActivity {
                 addRecipe.putExtra("userId", userId);
                 addRecipe.putExtra("userName", userName);
                 startActivity(addRecipe);
+            }
+        });
+
+        search.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //search function goes here.
             }
         });
 
