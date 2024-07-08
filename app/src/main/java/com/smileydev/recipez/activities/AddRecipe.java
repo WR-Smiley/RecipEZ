@@ -15,17 +15,24 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.smileydev.recipez.R;
 import com.smileydev.recipez.dao.database.Repository;
+import com.smileydev.recipez.entities.Ingredient;
 import com.smileydev.recipez.entities.Recipe;
 import com.smileydev.recipez.entities.User;
+import com.smileydev.recipez.services.IngredientViewAdapter;
 
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class AddRecipe extends AppCompatActivity {
+
+    int recipeId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,34 +40,44 @@ public class AddRecipe extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_add_recipe);
 
-        Repository repo = new Repository(getApplication());
         Button saveButton = findViewById(R.id.save);
         Button addIngredient = findViewById(R.id.addIngredientRecipe);
         EditText recipeName = findViewById(R.id.recipe_name);
-        TextView createdUser = findViewById(R.id.creator);
         EditText numServed = findViewById(R.id.recipePplEdit);
         EditText timeEst = findViewById(R.id.timeEdit);
         EditText instruction = findViewById(R.id.instructionEdit);
+        TextView createdUser = findViewById(R.id.creator);
         RecyclerView ingredients = findViewById(R.id.ingredientRecycler);
+
         Instant instant = Instant.now();
         Date now = Date.from(instant);
+
+        // Get information to populate fields and pass to AddIngredient
+
+        Repository repo = new Repository(getApplication());
+        String userName = getIntent().getStringExtra("userName");
+        createdUser.setText(userName);
+        int userId = getIntent().getIntExtra("userId", -1);
+        User currentUser = repo.getUser(userId);
+        if (repo.getAllRecipes().size() != 0) {
+            recipeId = (repo.getAllRecipes().size() + 1);
+        } else { recipeId = 1; }
+
         // Display date created and last updated.
         TextView creationDate = findViewById(R.id.dateCreated);
         creationDate.setText("Created on: " + now.toString());
         TextView updated = findViewById(R.id.lastUpdate);
         updated.setText("Last updated: " + now.toString());
 
-        String userName = getIntent().getStringExtra("userName");
-        createdUser.setText(userName);
-        int userId = getIntent().getIntExtra("userId", -1);
-        User currentUser = repo.getUser(userId);
+
 
         addIngredient.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(AddRecipe.this, AddIngredient.class);
-                //intent.putExtra("userId", userId);
-                //intent.putExtra("userName", userName);
+                intent.putExtra("userId", userId);
+                intent.putExtra("userName", userName);
+                intent.putExtra("recipeId", recipeId);
                 startActivity(intent);
             }
         });
@@ -128,5 +145,21 @@ public class AddRecipe extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+    }
+
+    protected void onResume() {
+        super.onResume();
+        RecyclerView ingredientRecycler = findViewById(R.id.ingredientRecycler);
+        Repository repo = new Repository(getApplication());
+        List<Ingredient> recipeIngredients = new ArrayList<Ingredient>();
+        for (Ingredient i : repo.getAllIngredients()) {
+            if (i.getRecipeId() == recipeId) {
+                recipeIngredients.add(i);
+            }
+        }
+        final IngredientViewAdapter ingredientViewAdapter = new IngredientViewAdapter(this);
+        ingredientRecycler.setAdapter(ingredientViewAdapter);
+        ingredientRecycler.setLayoutManager(new LinearLayoutManager(this));
+        ingredientViewAdapter.setIngredients(recipeIngredients);
     }
 }

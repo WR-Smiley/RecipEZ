@@ -17,7 +17,7 @@
             android:layout_height="wrap_content"
             android:layout_marginRight="10dp"
             android:text="Amount"
-            android:textSize="20sp" />
+            android:textSize="10sp" />
 
         <TextView
             android:id="@+id/measurement"
@@ -25,14 +25,14 @@
             android:layout_height="wrap_content"
             android:layout_marginRight="10dp"
             android:text="Measurement"
-            android:textSize="20sp" />
+            android:textSize="10sp" />
 
         <TextView
             android:id="@+id/ingredient_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Ingredient Name"
-            android:textSize="20sp" />
+            android:textSize="10sp" />
 
     </LinearLayout>
 

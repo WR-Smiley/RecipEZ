@@ -55,8 +55,8 @@ public class IngredientViewAdapter extends RecyclerView.Adapter<IngredientViewAd
             int amount = selected.getAmt();
             String measurement = selected.getMeasurement();
             String name = selected.getName();
-            holder.ingredientAmount.setText(amount);
-            holder.ingredientMeasurement.setText(measurement);
+            holder.ingredientAmount.setText(amount+"");
+            holder.ingredientMeasurement.setText(measurement+"");
             holder.ingredientName.setText(name);
         } else {
             holder.ingredientName.setText("No Recipes Yet!");
