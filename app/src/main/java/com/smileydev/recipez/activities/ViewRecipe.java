@@ -28,6 +28,7 @@ public class ViewRecipe extends AppCompatActivity {
     private int recipeId;
 
     private int userId;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -83,8 +84,6 @@ public class ViewRecipe extends AppCompatActivity {
                 intent.putExtra("id", current.getId());
                 intent.putExtra("userId", current.getUserId());
                 intent.putExtra("name", current.getName());
-                intent.putExtra("create", current.getDateCreated());
-                intent.putExtra("updated", current.getLastUpdate());
                 intent.putExtra("ppl", current.getPplServed());
                 intent.putExtra("estimate", current.getTimeEstimate());
                 intent.putExtra("user", current.getCreatedBy().getClass().getName());
@@ -99,5 +98,21 @@ public class ViewRecipe extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+    }
+
+    protected void onResume() {
+        super.onResume();
+        Repository repo = new Repository(getApplication());
+        Recipe current = repo.getRecipe(userId, recipeId);
+        TextView recipeName = findViewById(R.id.recipe_name);
+        recipeName.setText(current.getName());
+        TextView numServed = findViewById(R.id.recipePplEdit);
+        numServed.setText(current.getPplServed()+"");
+        TextView timeEst = findViewById(R.id.timeEdit);
+        timeEst.setText(current.getTimeEstimate()+"");
+        TextView instruction = findViewById(R.id.instructionEdit);
+        instruction.setText(current.getInstructions());
+        TextView updated = findViewById(R.id.lastUpdate);
+        updated.setText(current.getLastUpdate().toString());
     }
 }

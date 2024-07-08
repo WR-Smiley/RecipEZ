@@ -49,7 +49,7 @@ public class AddRecipe extends AppCompatActivity {
         EditText instruction = findViewById(R.id.instructionEdit);
         TextView createdUser = findViewById(R.id.creator);
         RecyclerView ingredients = findViewById(R.id.ingredientRecycler);
-
+        // Get current date for both creation and last updated dates
         Instant instant = Instant.now();
         Date now = Date.from(instant);
 
