@@ -35,6 +35,7 @@ public class ViewRecipe extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_view_recipe);
         Button editButton = findViewById(R.id.edit);
+        Button share = findViewById(R.id.share);
         TextView recipeName = findViewById(R.id.recipe_name);
         TextView createdUser = findViewById(R.id.creator);
         TextView numServed = findViewById(R.id.recipePplEdit);
@@ -92,6 +93,27 @@ public class ViewRecipe extends AppCompatActivity {
             }
         });
 
+        share.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String ingredientList = "";
+                List<Ingredient> ingredients = repo.getAllIngredients();
+                if (!ingredients.isEmpty()) {
+                    for (Ingredient i : ingredients) {
+                        ingredientList += i.getAmt() + " " + i.getMeasurement() + " " + i.getName() + "\n";
+                    }
+                }
+
+                String recipe = name + " — " + createdBy + "\nServings: " + serves + "\nTime Est.: " + estimate + " minutes" + "\nIngredients:\n" + ingredientList + "Instructions:\n" + instructionList;
+                Intent msg = new Intent();
+                msg.setAction(Intent.ACTION_SEND);
+                msg.putExtra(Intent.EXTRA_TITLE, "Shared Recipe");
+                msg.putExtra(Intent.EXTRA_TEXT, recipe);
+                msg.setType("text/plain");
+                Intent share = Intent.createChooser(msg, null);
+                startActivity(share);
+            }
+        });
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
