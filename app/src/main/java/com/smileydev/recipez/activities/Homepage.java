@@ -1,12 +1,16 @@
 package com.smileydev.recipez.activities;
 
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -25,6 +29,7 @@ import java.util.List;
 public class Homepage extends AppCompatActivity {
 
     int userId;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,7 +37,9 @@ public class Homepage extends AppCompatActivity {
         setContentView(R.layout.activity_home);
         Button newRecipe = findViewById(R.id.addRecipe);
         Button search = findViewById(R.id.searchButton);
+        EditText searchBar = findViewById(R.id.searchBar);
         TextView welcome = findViewById(R.id.welcomeMsg);
+        Context context = this;
         userId = getIntent().getIntExtra("userId", -1);
         String userName = getIntent().getStringExtra("userName");
         welcome.setText("Welcome to RecipEZ, " + userName + "!");
@@ -61,10 +68,42 @@ public class Homepage extends AppCompatActivity {
         search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //search function goes here.
+                if (searchBar.getText().toString().isEmpty()) {
+                    AlertDialog.Builder emptyAlert = new AlertDialog.Builder(Homepage.this);
+                    emptyAlert.setMessage("Please enter a search query.");
+                    emptyAlert.setTitle("Empty Fields");
+                    emptyAlert.setCancelable(false);
+                    emptyAlert.setPositiveButton("Okay", (DialogInterface.OnClickListener) (dialog, which) -> {
+                        dialog.cancel();
+                    });
+                    AlertDialog dialog = emptyAlert.create();
+                    dialog.show();
+                }
+                else if (searchBar.getText().toString().contains("*") ||
+                        searchBar.getText().toString().contains("DELETE") ||
+                        searchBar.getText().toString().contains("FROM") ||
+                        searchBar.getText().toString().contains("/") ||
+                        searchBar.getText().toString().contains("\\")) {
+                    AlertDialog.Builder passwordAlert = new AlertDialog.Builder(Homepage.this);
+                    passwordAlert.setMessage("Search may not contain '*', '/', '\\', or forbidden phrases");
+                    passwordAlert.setTitle("Query Forbidden");
+                    passwordAlert.setCancelable(false);
+                    passwordAlert.setPositiveButton("Okay", (DialogInterface.OnClickListener) (dialog, which) -> {
+                        dialog.cancel();
+                    });
+                    AlertDialog dialog = passwordAlert.create();
+                    dialog.show();
+                }
+                else {
+                    String query = searchBar.getText().toString();
+                    List<Recipe> searchResults = repo.searchRecipes(userId, query);
+                    final RecipeAdapter recipeAdapter = new RecipeAdapter(context, getApplication());
+                    recipeRecycler.setAdapter(recipeAdapter);
+                    recipeRecycler.setLayoutManager(new LinearLayoutManager(context));
+                    recipeAdapter.setRecipes(searchResults);
+                }
             }
         });
-
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());

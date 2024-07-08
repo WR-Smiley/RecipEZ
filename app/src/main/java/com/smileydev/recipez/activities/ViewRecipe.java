@@ -18,7 +18,7 @@ import com.smileydev.recipez.R;
 import com.smileydev.recipez.dao.database.Repository;
 import com.smileydev.recipez.entities.Ingredient;
 import com.smileydev.recipez.entities.Recipe;
-import com.smileydev.recipez.services.IngredientViewAdapter;
+import com.smileydev.recipez.services.IngredientRecipeViewAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -56,7 +56,7 @@ public class ViewRecipe extends AppCompatActivity {
                 recipeIngredients.add(i);
             }
         }
-        final IngredientViewAdapter ingredientViewAdapter = new IngredientViewAdapter(this, getApplication());
+        final IngredientRecipeViewAdapter ingredientViewAdapter = new IngredientRecipeViewAdapter(this, getApplication());
         ingredients.setAdapter(ingredientViewAdapter);
         ingredients.setLayoutManager(new LinearLayoutManager(this));
         ingredientViewAdapter.setIngredients(recipeIngredients);

@@ -90,6 +90,20 @@ public class Repository {
 
         return mRecipes;
     }
+
+    public List<Recipe> searchRecipes(int userId, String query) {
+        dbExecutor.execute(() -> {
+            mRecipes = mRDao.searchRecipes(userId, query);
+        });
+
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+
+        return mRecipes;
+    }
     public List<Ingredient> getAllIngredients() {
         dbExecutor.execute(() -> {
             mIngredients = mIDao.getAllIngredients();
