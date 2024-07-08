@@ -42,6 +42,7 @@ public class AddRecipe extends AppCompatActivity {
 
         Button saveButton = findViewById(R.id.save);
         Button addIngredient = findViewById(R.id.addIngredientRecipe);
+        Button refresh = findViewById(R.id.refreshView);
         EditText recipeName = findViewById(R.id.recipe_name);
         EditText numServed = findViewById(R.id.recipePplEdit);
         EditText timeEst = findViewById(R.id.timeEdit);
@@ -140,6 +141,16 @@ public class AddRecipe extends AppCompatActivity {
             }
         });
 
+        refresh.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+                overridePendingTransition(0, 0);
+                startActivity(getIntent());
+                overridePendingTransition(0, 0);
+            }
+        });
+
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
@@ -157,7 +168,7 @@ public class AddRecipe extends AppCompatActivity {
                 recipeIngredients.add(i);
             }
         }
-        final IngredientViewAdapter ingredientViewAdapter = new IngredientViewAdapter(this);
+        final IngredientViewAdapter ingredientViewAdapter = new IngredientViewAdapter(this, getApplication());
         ingredientRecycler.setAdapter(ingredientViewAdapter);
         ingredientRecycler.setLayoutManager(new LinearLayoutManager(this));
         ingredientViewAdapter.setIngredients(recipeIngredients);

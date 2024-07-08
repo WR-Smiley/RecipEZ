@@ -23,7 +23,7 @@ import com.smileydev.recipez.entities.Ingredient;
 import java.time.Instant;
 import java.util.Date;
 
-public class AddIngredient extends AppCompatActivity implements AdapterView.OnItemSelectedListener{
+public class AddIngredient extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
     private Spinner measurement;
     String[] volumeMeasurements;
@@ -63,20 +63,6 @@ public class AddIngredient extends AppCompatActivity implements AdapterView.OnIt
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int amt = -1;
-                try {
-                    amt = Integer.parseInt(amount.getText().toString());
-                } catch (Exception e) {
-                    AlertDialog.Builder intAlert = new AlertDialog.Builder(AddIngredient.this);
-                    intAlert.setMessage("Amount must be a positive integer.");
-                    intAlert.setTitle("Forbidden Entry");
-                    intAlert.setCancelable(false);
-                    intAlert.setPositiveButton("Okay", (DialogInterface.OnClickListener) (dialog, which) -> {
-                        dialog.cancel();
-                    });
-                    AlertDialog dialog = intAlert.create();
-                    dialog.show();
-                }
                 if (ingredientName.getText().toString().isEmpty() || amount.getText().toString().isEmpty()) {
                     AlertDialog.Builder emptyAlert = new AlertDialog.Builder(AddIngredient.this);
                     emptyAlert.setMessage("Name and Amount must not be blank.");
@@ -88,22 +74,11 @@ public class AddIngredient extends AppCompatActivity implements AdapterView.OnIt
                     AlertDialog dialog = emptyAlert.create();
                     dialog.show();
                 }
-                else if (amt < 0) {
-                    AlertDialog.Builder negativeAlert = new AlertDialog.Builder(AddIngredient.this);
-                    negativeAlert.setMessage("Amount must be a positive integer.");
-                    negativeAlert.setTitle("Forbidden Entry");
-                    negativeAlert.setCancelable(false);
-                    negativeAlert.setPositiveButton("Okay", (DialogInterface.OnClickListener) (dialog, which) -> {
-                        dialog.cancel();
-                    });
-                    AlertDialog dialog = negativeAlert.create();
-                    dialog.show();
-                }
                 else {
                     Repository repo = new Repository(getApplication());
                     String measurementTypeText = measurementType.getSelectedItem().toString();
                     String measurementText = measurement.getSelectedItem().toString();
-                    Ingredient ingredient = new Ingredient(ingredientName.getText().toString(), now, now, amt, measurementTypeText, measurementText, recipeId);
+                    Ingredient ingredient = new Ingredient(ingredientName.getText().toString(), now, now, amount.getText().toString(), measurementTypeText, measurementText, recipeId);
                     repo.insert(ingredient);
                     finish();
                 }

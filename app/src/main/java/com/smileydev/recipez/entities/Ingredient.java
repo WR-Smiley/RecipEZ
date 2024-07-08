@@ -14,7 +14,7 @@ public class Ingredient extends BasicInfo {
     private int id;
 
     @NonNull
-    private int amt;
+    private String amt;
 
     // Volume or weight
     @NonNull
@@ -27,7 +27,7 @@ public class Ingredient extends BasicInfo {
     @NonNull
     private int recipeId;
 
-    public Ingredient(String name, Date dateCreated, Date lastUpdate, int amt, String measurementType, String measurement, int recipeId) {
+    public Ingredient(String name, Date dateCreated, Date lastUpdate, String amt, String measurementType, String measurement, int recipeId) {
         super(name, dateCreated, lastUpdate);
         this.amt = amt;
         this.measurementType = measurementType;
@@ -43,11 +43,11 @@ public class Ingredient extends BasicInfo {
         this.id = id;
     }
 
-    public int getAmt() {
+    public String getAmt() {
         return amt;
     }
 
-    public void setAmt(int amt) {
+    public void setAmt(String amt) {
         this.amt = amt;
     }
 
