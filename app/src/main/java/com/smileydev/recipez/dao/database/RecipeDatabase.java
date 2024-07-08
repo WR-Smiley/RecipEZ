@@ -14,7 +14,7 @@ import com.smileydev.recipez.entities.Ingredient;
 import com.smileydev.recipez.entities.Recipe;
 import com.smileydev.recipez.entities.User;
 
-@Database(entities = {Recipe.class, Ingredient.class, User.class}, version = 5, exportSchema = false)
+@Database(entities = {Recipe.class, Ingredient.class, User.class}, version = 6, exportSchema = false)
 @TypeConverters({com.smileydev.recipez.services.TypeConverters.class})
 public abstract class RecipeDatabase extends RoomDatabase {
 

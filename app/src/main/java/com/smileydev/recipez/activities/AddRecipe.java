@@ -54,7 +54,6 @@ public class AddRecipe extends AppCompatActivity {
         Date now = Date.from(instant);
 
         // Get information to populate fields and pass to AddIngredient
-
         Repository repo = new Repository(getApplication());
         String userName = getIntent().getStringExtra("userName");
         createdUser.setText(userName);

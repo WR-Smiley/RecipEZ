@@ -1,5 +1,6 @@
 package com.smileydev.recipez.services;
 
+import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -12,7 +13,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.smileydev.recipez.R;
 import com.smileydev.recipez.activities.ViewRecipe;
+import com.smileydev.recipez.dao.database.Repository;
 import com.smileydev.recipez.entities.Recipe;
+import com.smileydev.recipez.entities.User;
 
 import java.util.List;
 
@@ -22,11 +25,14 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
 
     private final Context context;
 
+    private final Application application;
+
     private final LayoutInflater inflater;
 
-    public RecipeAdapter(Context context) {
+    public RecipeAdapter(Context context, Application application) {
         inflater = LayoutInflater.from(context);
         this.context = context;
+        this.application = application;
     }
 
     public class RecipeViewHolder extends RecyclerView.ViewHolder {
@@ -40,6 +46,9 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
                 public void onClick(View v) {
                     int position = getAdapterPosition();
                     final Recipe selected = allRecipes.get(position);
+                    Repository repo = new Repository(application);
+                    User u = repo.getUser(selected.getUserId());
+
 
                     Intent intent = new Intent(context, ViewRecipe.class);
                     intent.putExtra("id", selected.getId());
@@ -49,7 +58,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
                     intent.putExtra("updated", selected.getLastUpdate());
                     intent.putExtra("ppl", selected.getPplServed());
                     intent.putExtra("estimate", selected.getTimeEstimate());
-                    intent.putExtra("user", selected.getCreatedBy().getClass().getName());
+                    intent.putExtra("user", u.getName());
                     intent.putExtra("instructions", selected.getInstructions());
                     context.startActivity(intent);
                 }

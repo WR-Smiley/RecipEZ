@@ -42,6 +42,11 @@ public class ViewRecipe extends AppCompatActivity {
         TextView creationDate = findViewById(R.id.dateCreated);
         TextView updated = findViewById(R.id.lastUpdate);
         RecyclerView ingredients = findViewById(R.id.ingredientViewRecycler);
+        // Set recipeId and userId before any logic to ensure all subsequent logic works.
+        recipeId = getIntent().getIntExtra("id", -1);
+        userId = getIntent().getIntExtra("userId", 1);
+
+        //Populate ingredient recycler
         Repository repo = new Repository(getApplication());
         List<Ingredient> recipeIngredients = new ArrayList<Ingredient>();
         for (Ingredient i : repo.getAllIngredients()) {
@@ -49,30 +54,25 @@ public class ViewRecipe extends AppCompatActivity {
                 recipeIngredients.add(i);
             }
         }
-        Recipe current = repo.getRecipe(userId, recipeId);
         final IngredientViewAdapter ingredientViewAdapter = new IngredientViewAdapter(this, getApplication());
         ingredients.setAdapter(ingredientViewAdapter);
         ingredients.setLayoutManager(new LinearLayoutManager(this));
         ingredientViewAdapter.setIngredients(recipeIngredients);
 
 
-        recipeId = getIntent().getIntExtra("id", -1);
-        userId = getIntent().getIntExtra("userId", 1);
+        Recipe current = repo.getRecipe(userId, recipeId);
         String name = getIntent().getStringExtra("name");
         int serves = getIntent().getIntExtra("ppl", 0);
         int estimate = getIntent().getIntExtra("estimate", 0);
         String createdBy = getIntent().getStringExtra("user");
-        String[] instructionList = getIntent().getStringArrayExtra("instructions");
-        String instructions = "";
-        for (String s : instructionList) {
-            instructions += s + "\n";
-        }
+        String instructionList = getIntent().getStringExtra("instructions");
+
 
         recipeName.setText(name);
-        createdUser.setText(createdBy);
-        numServed.setText(serves);
-        timeEst.setText(estimate);
-        instruction.setText(instructions);
+        createdUser.setText("by " + createdBy);
+        numServed.setText(serves+"");
+        timeEst.setText(estimate+"");
+        instruction.setText(instructionList);
         creationDate.setText(current.getDateCreated().toString());
         updated.setText(current.getLastUpdate().toString());
 

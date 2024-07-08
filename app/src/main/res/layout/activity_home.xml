@@ -35,12 +35,11 @@
         android:layout_width="411dp"
         android:layout_height="194dp"
         android:layout_marginTop="192dp"
-        android:background="#FFFFFF"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerView"
+            android:id="@+id/recipeRecyclerView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingLeft="5dp" />
