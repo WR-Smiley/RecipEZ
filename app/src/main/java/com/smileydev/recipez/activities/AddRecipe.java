@@ -131,9 +131,7 @@ public class AddRecipe extends AppCompatActivity {
                 else {
                     Repository repo = new Repository(getApplication());
                     Recipe recipe = new Recipe(recipeName.getText().toString(), now, now, servings, minutes, currentUser, userId, instruction.getText().toString());
-                    repo.insert(recipe);
-                    Toast.makeText(AddRecipe.this, "Recipe added!", Toast.LENGTH_SHORT).show();
-                    finish();
+                    SaveRecipe(repo, recipe);
                 }
 
             }
@@ -142,10 +140,7 @@ public class AddRecipe extends AppCompatActivity {
         refresh.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
-                overridePendingTransition(0, 0);
-                startActivity(getIntent());
-                overridePendingTransition(0, 0);
+                Refresh();
             }
         });
 
@@ -154,6 +149,19 @@ public class AddRecipe extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+    }
+
+    public void Refresh() {
+        finish();
+        overridePendingTransition(0, 0);
+        startActivity(getIntent());
+        overridePendingTransition(0, 0);
+    }
+
+    public void SaveRecipe(Repository repo, Recipe recipe) {
+        repo.insert(recipe);
+        Toast.makeText(AddRecipe.this, "Recipe added!", Toast.LENGTH_SHORT).show();
+        finish();
     }
 
     protected void onResume() {

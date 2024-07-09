@@ -52,6 +52,15 @@ public class RecipeDatabaseTest {
     }
 
     @Test
+    public void autoIdTest() throws Exception {
+        User testUser = new User("John Doe", now, now, "Admin", "email@email.com", "admin", "password");
+        User testUser2 = new User("John Doe", now, now, "Admin", "email@email.com", "admin2", "password");
+        uDao.insert(testUser);
+        uDao.insert(testUser2);
+        assert uDao.getUser(1).getId() == 1: "Expected 1. User.getId() returned " + uDao.getUser(1).getId();
+    }
+
+    @Test
     public void passwordHashingTest() {
         User testUser = new User("John Doe", now, now, "Admin", "email@email.com", "admin", "password");
         String password = testUser.getPassword();
