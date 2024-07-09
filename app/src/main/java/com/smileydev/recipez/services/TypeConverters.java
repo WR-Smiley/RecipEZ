@@ -11,7 +11,7 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class TypeConverters {
+public class  TypeConverters {
 
     @TypeConverter
     public static String fromArrayList(ArrayList<String> list) {

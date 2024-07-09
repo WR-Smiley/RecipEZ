@@ -82,61 +82,7 @@ public class EditRecipe extends AppCompatActivity {
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int servings = -1;
-                int minutes = -1;
-                try {
-                    servings = Integer.parseInt(recipePpl.getText().toString());
-                    minutes = Integer.parseInt(timeEst.getText().toString());
-                    if (servings < 0 || minutes < 0) {
-                        AlertDialog.Builder negativeAlert = new AlertDialog.Builder(EditRecipe.this);
-                        negativeAlert.setMessage("Servings and Time Estimate must be positive.");
-                        negativeAlert.setTitle("Negative Numbers");
-                        negativeAlert.setCancelable(false);
-                        negativeAlert.setPositiveButton("Okay", (DialogInterface.OnClickListener) (dialog, which) -> {
-                            dialog.cancel();
-                        });
-                        AlertDialog dialog = negativeAlert.create();
-                        dialog.show();
-                    }
-                } catch (Exception e) {
-                    AlertDialog.Builder intAlert = new AlertDialog.Builder(EditRecipe.this);
-                    intAlert.setMessage("Servings and Time Estimate must only include numbers.");
-                    intAlert.setTitle("Faulty Data Type");
-                    intAlert.setCancelable(false);
-                    intAlert.setPositiveButton("Okay", (DialogInterface.OnClickListener) (dialog, which) -> {
-                        dialog.cancel();
-                    });
-                    AlertDialog dialog = intAlert.create();
-                    dialog.show();
-                }
-
-                if (recipeNameEdit.getText().toString().isEmpty() ||
-                        recipePpl.getText().toString().isEmpty() ||
-                        timeEst.getText().toString().isEmpty() ||
-                        instructionEdit.getText().toString().isEmpty() ||
-                        ingredients.getChildCount() == 0) {
-                    AlertDialog.Builder emptyAlert = new AlertDialog.Builder(EditRecipe.this);
-                    emptyAlert.setMessage("Please complete all fields! You must add at least one ingredient and instruction.");
-                    emptyAlert.setTitle("Empty Fields");
-                    emptyAlert.setCancelable(false);
-                    emptyAlert.setPositiveButton("Okay", (DialogInterface.OnClickListener) (dialog, which) -> {
-                        dialog.cancel();
-                    });
-                    AlertDialog dialog = emptyAlert.create();
-                    dialog.show();
-                }
-
-                else {
-                    Repository repo = new Repository(getApplication());
-                    current.setName(recipeNameEdit.getText().toString());
-                    current.setPplServed(servings);
-                    current.setTimeEstimate(minutes);
-                    current.setLastUpdate(now);
-                    current.setInstructions(instructionEdit.getText().toString());
-                    repo.update(current);
-                    Toast.makeText(EditRecipe.this, "Changes saved!", Toast.LENGTH_SHORT).show();
-                    finish();
-                }
+                UpdateRecipe(current, now, recipePpl, timeEst, recipeNameEdit, instructionEdit, ingredients);
             }
         });
 
@@ -154,10 +100,7 @@ public class EditRecipe extends AppCompatActivity {
         refresh.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
-                overridePendingTransition(0, 0);
-                startActivity(getIntent());
-                overridePendingTransition(0, 0);
+                Refresh();
             }
         });
 
@@ -166,6 +109,71 @@ public class EditRecipe extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+    }
+
+    public void Refresh() {
+        finish();
+        overridePendingTransition(0, 0);
+        startActivity(getIntent());
+        overridePendingTransition(0, 0);
+    }
+
+    public void UpdateRecipe(Recipe current, Date now, EditText recipePpl, EditText timeEst, EditText recipeNameEdit, EditText instructionEdit, RecyclerView ingredients) {
+        int servings = -1;
+        int minutes = -1;
+        try {
+            servings = Integer.parseInt(recipePpl.getText().toString());
+            minutes = Integer.parseInt(timeEst.getText().toString());
+            if (servings < 0 || minutes < 0) {
+                AlertDialog.Builder negativeAlert = new AlertDialog.Builder(EditRecipe.this);
+                negativeAlert.setMessage("Servings and Time Estimate must be positive.");
+                negativeAlert.setTitle("Negative Numbers");
+                negativeAlert.setCancelable(false);
+                negativeAlert.setPositiveButton("Okay", (DialogInterface.OnClickListener) (dialog, which) -> {
+                    dialog.cancel();
+                });
+                AlertDialog dialog = negativeAlert.create();
+                dialog.show();
+            }
+        } catch (Exception e) {
+            AlertDialog.Builder intAlert = new AlertDialog.Builder(EditRecipe.this);
+            intAlert.setMessage("Servings and Time Estimate must only include numbers.");
+            intAlert.setTitle("Faulty Data Type");
+            intAlert.setCancelable(false);
+            intAlert.setPositiveButton("Okay", (DialogInterface.OnClickListener) (dialog, which) -> {
+                dialog.cancel();
+            });
+            AlertDialog dialog = intAlert.create();
+            dialog.show();
+        }
+
+        if (recipeNameEdit.getText().toString().isEmpty() ||
+                recipePpl.getText().toString().isEmpty() ||
+                timeEst.getText().toString().isEmpty() ||
+                instructionEdit.getText().toString().isEmpty() ||
+                ingredients.getChildCount() == 0) {
+            AlertDialog.Builder emptyAlert = new AlertDialog.Builder(EditRecipe.this);
+            emptyAlert.setMessage("Please complete all fields! You must add at least one ingredient and instruction.");
+            emptyAlert.setTitle("Empty Fields");
+            emptyAlert.setCancelable(false);
+            emptyAlert.setPositiveButton("Okay", (DialogInterface.OnClickListener) (dialog, which) -> {
+                dialog.cancel();
+            });
+            AlertDialog dialog = emptyAlert.create();
+            dialog.show();
+        }
+
+        else {
+            Repository repo = new Repository(getApplication());
+            current.setName(recipeNameEdit.getText().toString());
+            current.setPplServed(servings);
+            current.setTimeEstimate(minutes);
+            current.setLastUpdate(now);
+            current.setInstructions(instructionEdit.getText().toString());
+            repo.update(current);
+            Toast.makeText(EditRecipe.this, "Changes saved!", Toast.LENGTH_SHORT).show();
+            finish();
+        }
     }
 
     protected void onResume() {
