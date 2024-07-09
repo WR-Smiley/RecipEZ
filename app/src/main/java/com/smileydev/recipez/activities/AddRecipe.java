@@ -69,8 +69,6 @@ public class AddRecipe extends AppCompatActivity {
         TextView updated = findViewById(R.id.lastUpdate);
         updated.setText("Last updated: " + now.toString());
 
-
-
         addIngredient.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -111,6 +109,7 @@ public class AddRecipe extends AppCompatActivity {
                     });
                     AlertDialog dialog = intAlert.create();
                     dialog.show();
+                    return;
                 }
 
                 if (recipeName.getText().toString().isEmpty() ||

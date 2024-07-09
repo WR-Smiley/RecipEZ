@@ -1,6 +1,7 @@
 package com.smileydev.recipez.dao.database;
 
 import android.app.Application;
+import android.content.Context;
 
 import com.smileydev.recipez.dao.IngredientDAO;
 import com.smileydev.recipez.dao.RecipeDAO;
@@ -32,6 +33,13 @@ public class Repository {
 
     public Repository(Application application) {
         RecipeDatabase db = RecipeDatabase.getDatabase(application);
+        mRDao = db.mRDao();
+        mIDao = db.mIDao();
+        mUDao = db.mUDao();
+    }
+
+    public Repository(Context context) {
+        RecipeDatabase db = RecipeDatabase.getDatabase(context);
         mRDao = db.mRDao();
         mIDao = db.mIDao();
         mUDao = db.mUDao();
