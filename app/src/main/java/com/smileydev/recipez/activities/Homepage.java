@@ -96,11 +96,11 @@ public class Homepage extends AppCompatActivity {
                 }
                 else {
                     String query = searchBar.getText().toString();
-                    List<Recipe> searchResults = repo.searchRecipes(userId, query);
-                    final RecipeAdapter recipeAdapter = new RecipeAdapter(context, getApplication());
-                    recipeRecycler.setAdapter(recipeAdapter);
-                    recipeRecycler.setLayoutManager(new LinearLayoutManager(context));
-                    recipeAdapter.setRecipes(searchResults);
+                    Intent intent = new Intent(Homepage.this, SearchReport.class);
+                    intent.putExtra("query", query);
+                    intent.putExtra("userId", userId);
+                    intent.putExtra("userName", userName);
+                    startActivity(intent);
                 }
             }
         });

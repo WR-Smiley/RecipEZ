@@ -13,6 +13,9 @@
         android:theme="@style/Theme.RecipEZ"
         tools:targetApi="31">
         <activity
+            android:name=".activities.SearchReport"
+            android:exported="false" />
+        <activity
             android:name=".activities.NewUser"
             android:exported="false" />
         <activity
