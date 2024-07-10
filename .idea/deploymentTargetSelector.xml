@@ -5,13 +5,13 @@
       <SelectionState runConfigName="app">
         <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>
-      <SelectionState runConfigName="writeUserAndReadInList()">
+      <SelectionState runConfigName="writeIngredientAndReadfromDb()">
         <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>
-      <SelectionState runConfigName="passwordHashingTest()">
+      <SelectionState runConfigName="userGets()">
         <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>
-      <SelectionState runConfigName="autoIdTest()">
+      <SelectionState runConfigName="EntityGetSetTests">
         <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>
     </selectionStates>

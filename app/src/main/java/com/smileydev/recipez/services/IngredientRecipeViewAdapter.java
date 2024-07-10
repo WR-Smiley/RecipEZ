@@ -15,6 +15,7 @@ import com.smileydev.recipez.entities.Ingredient;
 
 import java.util.List;
 
+
 public class IngredientRecipeViewAdapter extends RecyclerView.Adapter<IngredientRecipeViewAdapter.IngredientViewHolder> {
 
     private List<Ingredient> allIngredients;
