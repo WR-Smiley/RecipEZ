@@ -57,48 +57,66 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void Login(String username, String password) {
-        try {
-            // Create boolean to allow for either logging in or showing error message.
-            Boolean logged_in = false;
-            User login_user = null;
-            // Hash password
-            String encryptedPassword = null;
-            MessageDigest digest = MessageDigest.getInstance("MD5");
-            digest.update(password.getBytes());
-            byte[] bytes = digest.digest();
-            StringBuilder passwordBuilder = new StringBuilder();
-            for (int i = 0; i < bytes.length; i++) {
-                passwordBuilder.append(Integer.toString((bytes[i] & 0xff) + 0x100, 16).substring(1));
-            }
-            encryptedPassword = passwordBuilder.toString();
-            // Compare username and hashed password to database
-            Repository repo = new Repository(getApplication());
-            for (User u : repo.getAllUsers()) {
-                if (username.equals(u.getUsername()) && (encryptedPassword.equals(u.getPassword()))) {
-                    logged_in = true;
-                    login_user = u;
+        if (password.contains("*") ||
+                password.contains("DELETE") ||
+                password.contains("FROM") ||
+                password.contains("DROP") ||
+                password.contains("WHERE") ||
+                password.contains("/") ||
+                password.contains("\\")) {
+            AlertDialog.Builder passwordAlert = new AlertDialog.Builder(MainActivity.this);
+            passwordAlert.setMessage("Password may not contain '*', '/', '\\', or forbidden phrases");
+            passwordAlert.setTitle("Password Forbidden");
+            passwordAlert.setCancelable(false);
+            passwordAlert.setPositiveButton("Okay", (DialogInterface.OnClickListener) (dialog, which) -> {
+                dialog.cancel();
+            });
+            AlertDialog dialog = passwordAlert.create();
+            dialog.show();
+        }
+        else {
+            try {
+                // Create boolean to allow for either logging in or showing error message.
+                Boolean logged_in = false;
+                User login_user = null;
+                // Hash password
+                String encryptedPassword = null;
+                MessageDigest digest = MessageDigest.getInstance("MD5");
+                digest.update(password.getBytes());
+                byte[] bytes = digest.digest();
+                StringBuilder passwordBuilder = new StringBuilder();
+                for (int i = 0; i < bytes.length; i++) {
+                    passwordBuilder.append(Integer.toString((bytes[i] & 0xff) + 0x100, 16).substring(1));
                 }
+                encryptedPassword = passwordBuilder.toString();
+                // Compare username and hashed password to database
+                Repository repo = new Repository(getApplication());
+                for (User u : repo.getAllUsers()) {
+                    if (username.equals(u.getUsername()) && (encryptedPassword.equals(u.getPassword()))) {
+                        logged_in = true;
+                        login_user = u;
+                    }
+                }
+                if (logged_in) {
+                    Intent intent = new Intent(MainActivity.this, Homepage.class);
+                    intent.putExtra("userId", login_user.getId());
+                    intent.putExtra("userName", login_user.getName());
+                    startActivity(intent);
+                    finish();
+                } else {
+                    AlertDialog.Builder loginAlert = new AlertDialog.Builder(MainActivity.this);
+                    loginAlert.setMessage("Username or password incorrect.");
+                    loginAlert.setTitle("Invalid login");
+                    loginAlert.setCancelable(false);
+                    loginAlert.setPositiveButton("Okay", (DialogInterface.OnClickListener) (dialog, which) -> {
+                        dialog.cancel();
+                    });
+                    AlertDialog dialog = loginAlert.create();
+                    dialog.show();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
             }
-            if (logged_in) {
-                Intent intent = new Intent(MainActivity.this, Homepage.class);
-                intent.putExtra("userId", login_user.getId());
-                intent.putExtra("userName", login_user.getName());
-                startActivity(intent);
-                finish();
-            }
-            else {
-                AlertDialog.Builder loginAlert = new AlertDialog.Builder(MainActivity.this);
-                loginAlert.setMessage("Username or password incorrect.");
-                loginAlert.setTitle("Invalid login");
-                loginAlert.setCancelable(false);
-                loginAlert.setPositiveButton("Okay", (DialogInterface.OnClickListener) (dialog, which) -> {
-                    dialog.cancel();
-                });
-                AlertDialog dialog = loginAlert.create();
-                dialog.show();
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
         }
     }
 }
