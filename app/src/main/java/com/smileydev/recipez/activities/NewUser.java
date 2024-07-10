@@ -71,6 +71,8 @@ public class NewUser extends AppCompatActivity {
         else if (password.getText().toString().contains("*") ||
                 password.getText().toString().contains("DELETE") ||
                 password.getText().toString().contains("FROM") ||
+                password.getText().toString().contains("DROP") ||
+                password.getText().toString().contains("WHERE") ||
                 password.getText().toString().contains("/") ||
                 password.getText().toString().contains("\\")) {
             AlertDialog.Builder passwordAlert = new AlertDialog.Builder(NewUser.this);
